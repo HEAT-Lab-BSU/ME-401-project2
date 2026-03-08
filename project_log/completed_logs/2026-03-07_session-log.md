@@ -6,16 +6,16 @@
 | 1 | 90 | 40 | 50 |
 | 2 | 90| 120 | -30 |
 | 3 | 60 | 20 | -40 |
-| 4 | 60 | 60 | 0 |
+| 4 | 60 | 50 | 10 |
 
 ## Time Spent
-Total: 240 min (60 minutes spent on project meta tasks)
+Total: 230 min (+ 60 minutes spent on project meta tasks)
 
 ## What Happened
 -created three draw.io tabs
     project documentation analysis
-    concept map
-    specification table
+    project concept map
+    specifications concept maps
 
 ## Surprises
 Found 2 new AI research tools (elicit and a graphing tool that makes thematic research visual and intuitive)
