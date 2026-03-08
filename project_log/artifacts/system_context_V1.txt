@@ -1,0 +1,171 @@
+================================================================================
+PROJECT CONTEXT FILE — VERSION 1.0
+Airship-Conveyed Modular Waste Valorization System
+Hydrothermal Carbonization (HTC) Research & Engineering Project
+================================================================================
+Date: 2026-03-07
+Author: [Student]
+Status: First iteration — living document
+
+--------------------------------------------------------------------------------
+1. PROJECT IDENTITY
+--------------------------------------------------------------------------------
+
+Company Concept:
+  A disaster relief company specializing in airship-conveyed, modular
+  bio-reactor systems for on-site waste valorization in disaster-affected zones.
+
+Core Technology:
+  Hydrothermal Carbonization (HTC) — a thermochemical process that converts
+  wet organic and petrochemical waste into hydrochar, process water, and
+  recoverable gases under elevated temperature and pressure.
+
+Mission Niche:
+  Deploy rapidly to disaster zones and convert locally generated waste streams
+  into usable energy or sequestered carbon, without reliance on fixed
+  infrastructure.
+
+--------------------------------------------------------------------------------
+2. STUDENT CONTEXT & LEARNING OBJECTIVES
+--------------------------------------------------------------------------------
+
+Background:
+  Senior mechanical engineering student. Strong thermal/fluid fundamentals.
+  Python beginner. Seeking to build applied computing competence and
+  AI-collaborative engineering habits before entering industry.
+
+Learning Goals (parallel to technical work):
+  - Develop Python fluency through hands-on simulation and data tasks
+  - Practice effective AI interaction: prompting, verification, iteration
+  - Build reproducible engineering workflows (documentation, version control)
+  - Demonstrate that AI augments engineering skill rather than replacing it
+
+Guiding Principle:
+  Every computation, model, and result produced with AI assistance should be
+  understood, explainable, and reproducible by the student independently.
+
+--------------------------------------------------------------------------------
+3. SYSTEM FRAMING
+--------------------------------------------------------------------------------
+
+Primary Lens: Process-First
+  The system is defined by its process chain. Feedstock selection and
+  deployment scenarios are evaluated against process requirements, not the
+  other way around.
+
+Primary Sizing Constraint: Energy Self-Sufficiency
+  The system must generate enough recoverable energy from waste conversion
+  to power its own operations. The energy balance is the spine of all
+  design decisions.
+
+Energy Self-Sufficiency Condition:
+  E_recovered >= E_reactor + E_preprocessing + E_auxiliary
+
+Waste Streams in Scope:
+  - Municipal organic (food waste, sewage sludge)
+  - Agricultural residue (crop waste, animal manure)
+  - Industrial organic (processing byproducts)
+  - Petrochemical / mixed hydrocarbon waste
+
+--------------------------------------------------------------------------------
+4. PROCESS CHAIN (5-STAGE MODEL)
+--------------------------------------------------------------------------------
+
+Stage 1 — Intake & Preprocessing
+  Function:  Waste reception, sorting, size reduction, moisture conditioning
+  Key var:   Moisture content (%), particle size
+  Constraint: Energy cost of drying/conditioning must not exceed feedstock value
+
+Stage 2 — HTC Reactor
+  Function:  Thermochemical conversion of conditioned feedstock
+  Key var:   Temperature (180–250°C), pressure (autogenous), residence time
+  Constraint: Must produce net positive energy yield for self-sufficiency
+
+Stage 3 — Product Separation
+  Function:  Phase separation of hydrochar, process water, and gas
+  Key var:   Separation efficiency, parasitic load
+  Constraint: Minimize energy draw; maximize char recovery
+
+Stage 4 — Energy Recovery
+  Function:  Heat integration and optional power generation from process heat
+  Key var:   Heat exchanger effectiveness, recovery ratio
+  Constraint: Recovered heat must close the loop back into Stage 1/2
+
+Stage 5 — Output Disposition
+  Function:  Hydrochar end-use (fuel combustion or carbon sequestration),
+             process water treatment, gas handling
+  Key var:   Char heating value, carbon content, emissions
+  Constraint: Output pathway determines whether system is optimized for
+              energy output or carbon sequestration
+
+--------------------------------------------------------------------------------
+5. KEY ENGINEERING TENSIONS
+--------------------------------------------------------------------------------
+
+1. Moisture Content vs. Energy Cost
+   HTC tolerates wet feedstock, but evaporating water is thermally expensive.
+   There is a crossover moisture threshold beyond which a feedstock becomes
+   an energy liability. This threshold varies by feedstock and must be modeled.
+
+2. Throughput vs. Thermal Mass
+   Smaller modular reactors lose proportionally more heat to surroundings.
+   Self-sufficiency becomes harder to achieve at lower scales. Scale selection
+   is a critical design variable.
+
+3. Hydrochar as Fuel vs. Sequestration
+   Combusting hydrochar to power the reactor trades long-term carbon
+   sequestration value for operational sustainability. This is a core
+   strategic tradeoff the company must define.
+
+4. Airship Payload vs. System Scale
+   Although not the primary constraint, the airship platform imposes hard
+   limits on system mass and volume that will bound feasible reactor size.
+   This becomes a secondary constraint once the energy balance is established.
+
+--------------------------------------------------------------------------------
+6. SPECIFICATION TABLE ARCHITECTURE (DRAFT)
+--------------------------------------------------------------------------------
+
+Columns: Stage | Key Parameter | Input | Output | Self-Sufficiency Constraint
+
+  Preprocessing  | Moisture reduction     | Raw waste        | Conditioned feed  | Energy cost ceiling
+  HTC Reactor    | Temp / Pressure / Time | Conditioned feed | Hydrochar + water | Min exothermic yield
+  Separation     | Phase efficiency       | Slurry           | Char, water, gas  | Parasitic load limit
+  Energy Recovery| Heat exchanger eff.    | Process heat     | Reactor preheat   | Recovery ratio target
+  Output         | Char disposition       | Hydrochar        | Fuel or sequested | Net energy or C-credit
+
+Note: This table is a first-draft scaffold. Numerical values and units to be
+populated as research and simulation work progresses.
+
+--------------------------------------------------------------------------------
+7. IMMEDIATE NEXT STEPS
+--------------------------------------------------------------------------------
+
+Phase A — Research (current focus)
+  - Identify key HTC literature: conversion efficiency, feedstock-specific
+    yields, energy balance data
+  - Survey airship payload specifications for comparable platforms
+  - Locate published HTC energy balance models for benchmarking
+
+Phase B — Python Simulation psuedo code brainstorm
+  - explore how computational tools can be applied to these topics
+
+Phase C — Specification Table brainstorm 
+  - brainstorm and define deliverables for analysis during this project
+
+--------------------------------------------------------------------------------
+8. OPEN QUESTIONS (to be resolved through research)
+--------------------------------------------------------------------------------
+
+  - What is the realistic HTC conversion efficiency range for each waste stream?
+  - What is the minimum viable scale for energy self-sufficiency?
+  - What airship platform class (payload class) is appropriate for a
+    modular bioreactor deployment?
+  - Is a single HTC configuration sufficient for mixed feedstocks, or is
+    adaptive operating logic required?
+  - What is the regulatory/safety framework for airborne chemical processing?
+
+--------------------------------------------------------------------------------
+END OF DOCUMENT — v1.0
+Next revision trigger: completion of Phase A research sweep
+================================================================================
