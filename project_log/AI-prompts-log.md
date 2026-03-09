@@ -126,6 +126,83 @@ outputs -> I will generate a short (3-4 page) technical and submit a record of m
 
 ---
 
+## Entry — 2026-03-09
+
+**Context:** In the middle of conceptual development
+
+**Intent:** Working towards refining V1 of the spec table to progress towards having a complete concept / system map
+
+**Prompt:**
+```
+We are now going to start a new chat. This chat will be to bound the process of creating the specification table and incorporation of research and governing equations.
+
+my interpretation of context for project currently:
+we are exploring three primary principles : transport and logistics, heat transfer, fluid mechanics. Each of these principles has constraints by virtue of the physical context. All of these topics are viewed through the lens of modular waste management strategies for disaster relief.
+
+Next steps:
+solidify and narrow analysis scope to create a meaningful and manageable process forward. Identify governing equations that will serve as the foundation for the development for pseudo code and then computational resources. Use these to complete a systems map and then a actionable specification table that will drive this project.
+
+High level:
+I need to finish the conceptual mapping and then create an artifact (specification table) that will bridge the brainstorming and research I have done to specific engineering analysis tool creation and optimization outcomes.
+
+What I am seeking now:
+A new prompt that encapsulates this developing project and sets up the next block of work towards the accomplishment of these goals and also encourages me to learn and practice ethical and meaningful incorporation of AI tools in industry relevant engineering analysis
+-----------------------------
+Current analysis context:
+system: a modular HTC platform that can be lowered from an airship for disaster waste management. 
+system questions: how many modules could be carried by an airship, what are the high level requirements for loading / off loading this type of equipment. Can the hydrogen in the airships be used as a fuel source for the HTC reactors (decreases buoyancy once the reactors are deployed)
+analysis: exploration of payload potential currently available (want in incorporate basic bouyant force calculations with hydrogen bladder system); heat transfer analysis regarding reactor thermal balance and heat exchanger; pump requirements for slurry mechanics.
+
+Next crucial steps:
+what constraints might arise from disaster response operations?
+incorporate basic mechanical analysis for reactor (hoop stress for pressurized container)
+create system map of inputs / outputs / context considerations. finalize specification table for this project.
+
+Draft a new context file for this project which can be used to inform future chats
+```
+**Response Summary:** This response was an excellent high level overview of concepts and connections. 
+
+**What I Did With It:** This provided a good foundation for me to choose relevant and interesting pathways. It was used as a conceptual brainstorm that allowed me to effectively define the scope of the project.
+
+**Reflection:** AI is excellent at generating well formatted conceptual maps. It went farther than was necessary in some way (over explanation). For the most part, it did an excellent job of providing a great deal of simple material that I was able to format and define in a helpful way.
+
+---
+
+## Entry — 2026-03-09
+
+**Context:** Finalizing a System Map and beginning psuedo code phase
+
+**Intent:** I want to understand best practices and work flows for the development of conceptual engineering frameworks
+
+**Prompt:**
+```
+I now have a specification table and I want to explore "SYSTEMS MAP — MODULE COUPLING LOGIC" concepts covered in the V2 context file for the purpose of understanding best practices for creating meaningful systems map and psuedo code base structures for this project.
+Review this and then provide me with clarifying question for a this chat.
+
+What I am hoping to a achieve is a better personal intuition for the creation of robust engineering frameworks so that I can actually improve my skills and what I will be offer to future industrial teams I may be a part of.
+
+------------------------------
+Assuming for simplicity that this is a batch process m_dot = volume / residence time 
+I can determine the quantity of reactors that can be carried by a single ship (with a scaling factor that accounts for total module mass)
+This should probably factor into the system configuration, multiple reactors physically near each other running in stages will create a more complex reaction heat availability environment (one batch can be preheating another)
+So first parameters found in research are pressure / temp for reaction. That along with payload capacity defines physical system.
+
+Then, withing the reaction space the heat exchanger, reaction balance loop can be optimized for energy sufficiency.
+
+So for a pseudo code process -> identify basic loop structure, two iterative processes here. identify physical parameters (pressure, temperature, moisture content, heat of rx). identify looping parameters to sweep across.
+
+Would this be a good process to develop here or am I missing something about the nature of system mapping for pseudo code purposes?
+------------------------------
+
+```
+**Response Summary:** One or two sentences on what came back.
+
+**What I Did With It:** Did you use it, modify it, discard it?
+
+**Reflection:** What does this interaction tell you about AI as a tool?
+
+---
+
 ## Entry — YYYY-MM-DD
 
 **Context:** What stage of the project were you in?

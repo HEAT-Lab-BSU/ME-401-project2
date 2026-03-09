@@ -1,0 +1,30 @@
+# Session Log — 2026-03-09
+
+## Planned vs Actual
+| Block | Planned | Actual | Delta |
+|-------|---------|--------|-------|
+| 1 | 120 min | 90 mins | 30
+| 2 | 30 min | completed as part of block 1 
+| 3 | 20 min | completed as part of block 1
+| 4 | 60 min | 75 min | -15
+
+## Time Spent
+Total: 225 min
+
+## What Happened
+worked out system map, scope, governing equations.
+Did pre work for pseudo code phase
+
+## Surprises
+The first three blocks all evolved as a sing piece. The system map is not exactly how I thought it would look, maybe not high level enough?
+
+## AI Prompts Used
+- second iteration context capture and environmental constraint incorporation
+- pseudo code concept exploration
+
+## Open Questions Leaving This Session
+- How will the code be set up to address issues identified
+
+## What the Next Session Should Start With
+- finish conceptual mapping of pseudo code
+    - identify key parameters to locate in literature
