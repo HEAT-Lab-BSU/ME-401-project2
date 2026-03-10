@@ -195,11 +195,48 @@ Would this be a good process to develop here or am I missing something about the
 ------------------------------
 
 ```
-**Response Summary:** One or two sentences on what came back.
+**Response Summary:** Produced a lot of information regarding how to structure and organize the system
 
-**What I Did With It:** Did you use it, modify it, discard it?
+**What I Did With It:** synthesized relevant portions and created charts to explain process
 
-**Reflection:** What does this interaction tell you about AI as a tool?
+**Reflection:** AI is very tailored, but even with a lot of context and explicit prompts, it is still similar to reading stack overflow or any of the pre AI digital methods where the researcher has to pick through and fit the info presented to map to the actual context of the project. The fact that the AI produces so much 'tailored' information is almost a harder challenge because it can be difficult to disentangle what is useful and what is based on erroneous lines of inference.
+
+---
+
+## Entry — 2026-03-10
+
+**Context:** Session 3, Pseudo Code and Data Collection
+
+**Intent:** I will be summarizing my conceptual location at the beginning of this session and working towards an efficient research route
+
+**Prompt:**
+```
+[claude sonnet 4.6 ]
+We are working to practice high efficiency engineering data acquisition. I have identified Elicit as a good AI research assistant.
+
+What I would like:
+
+Ethical and rigorous work flow to gather data which will be used for parameter definitions.
+ Computational parameters: I will need values pertaining to the HHV, efficiency of HTC, specific heats used for batch, heterogeneous feedstock, hydrothermal carbonization. 
+
+Case studies and applications would be best. 
+Simultaneously, I would like to identify useful NREL,  IEA Bioenergy, and Fraunhofer resources that might be useful for grounding my engineering project in.
+
+How should I think about using this resource to optimize my efforts and results? Please provide short, high level workflow
+
+-----
+[elicit]
+summarize "https://doi.org/10.1016/J.RSER.2018.03.071" and explain critical parameters that  I can use to build a simple computational model that explores the temp / pressure/ and energy balance for HTC
+----
+Summarize the most applicable process case studies for this topic with an emphasis on energy balance data, mixed feedstock runs, crossover of moisture thresholds
+
+
+```
+**Response Summary:** helpful way to think about how to use elicit for research purposes. elicit produces a wealth of data
+
+**What I Did With It:** taking strategies and data sets to construct final conceptual map inputs
+
+**Reflection:** AI allowed me to do a meta analysis about the best practices for research with novel tech. I still need to do a lot of synthesis and make a comprehensible final artifact.
 
 ---
 
@@ -211,6 +248,12 @@ Would this be a good process to develop here or am I missing something about the
 
 **Prompt:**
 ```
+[model]
+
+----
+[model]
+
+----
 
 ```
 **Response Summary:** One or two sentences on what came back.
