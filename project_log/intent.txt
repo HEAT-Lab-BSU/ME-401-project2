@@ -66,5 +66,10 @@
     - 3:45 beginning first code iteration
     - 4:40 all 4 code modules complete and giving acceptable V1 results
 --------------------------------
-
+2026/03/17
+    - 8:30 reviewing yesterday and starting project logs
+    - 9:00 beginning review phase [1]
+    - 9:30 need to create a figure that represents total throughput of deployed system
+    - 10:15 figure created. Starting report diagram / taking break
+    
 --------------------------------

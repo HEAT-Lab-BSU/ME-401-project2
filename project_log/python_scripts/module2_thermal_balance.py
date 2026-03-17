@@ -270,8 +270,6 @@ def run_module2(module1_df, feedstocks, moisture_array, T_feed_C, c_p_water):
 
     results_df = pd.DataFrame(records)
     return results_df
-
-
 # ==============================================================================
 # DRIVER BLOCK
 # ==============================================================================
@@ -395,7 +393,7 @@ if __name__ == "__main__":
                 ax.annotate(
                     f"x={crossover:.2f}",
                     xy=(crossover, 0),
-                    xytext=(crossover + 0.02, ax.get_ylim()[0] * 0.5
+                    xytext=(crossover + 0.0, ax.get_ylim()[0] * 0.5
                             if ax.get_ylim()[0] < 0 else 5),
                     fontsize=7,
                     color="gray"
@@ -421,36 +419,164 @@ if __name__ == "__main__":
         print(f"Figure saved: {fig_name}")
 
     plt.show()
+    # --------------------------------------------------------------------------
+# Deployment throughput surface: N * m_dot vs. radius at each temperature
+# One figure per unique T_reactor value. Feedstock-agnostic (geometry only).
+# One curve per residence time tau. Star marks optimal radius per curve.
+# --------------------------------------------------------------------------
 
-    # --------------------------------------------------------------------------
-    # 5. Save output JSON
-    # --------------------------------------------------------------------------
-    output = {
-        "metadata": {
-            "module":        "module2_thermal_balance",
-            "feedstocks":    list(FEEDSTOCKS.keys()),
-            "moisture_range": [float(MOISTURE_RANGE[0]), float(MOISTURE_RANGE[-1])],
-            "T_feed_C":      T_FEED_C,
-            "T_rep_C":       T_rep,
-            "r_rep_m":       r_rep,
-            "units": {
-                "Q_reaction": "W",
-                "Q_preheat":  "W",
-                "Q_net":      "W",
-                "m_dot":      "kg/s",
-                "moisture":   "fraction (0=dry, 1=pure water)"
-            },
-            "notes": [
-                "Q_net here is gross balance only (no heat exchanger recovery, no pump work).",
-                "Module 5 applies ε correction and subtracts W_pump + W_auxiliary.",
-                "All feedstock HHV and eta_HTC values are PLACEHOLDERS — replace with literature."
-            ]
+def plot_throughput_surface(module1_df, output_dir="."):
+    """
+    Plot total deployment throughput (N * m_dot) vs. vessel radius for each
+    reactor temperature. One figure per temperature, one curve per residence
+    time. Optimal radius marked with a star per curve.
+
+    Parameters
+    ----------
+    module1_df : pd.DataFrame  Module 1 output — must contain columns:
+                                [T_C, r_m, tau_s, m_dot_kg_s, N]
+    output_dir : str           directory in which to save PNG files
+
+    Returns
+    -------
+    saved_files : list of str  paths to all saved PNG files
+
+    Notes
+    -----
+    # NOTE: Total throughput = N * m_dot where N = floor(payload / M_module).
+    #       The floor() discretization causes a sawtooth oscillation in the
+    #       throughput surface — this is physically real, not a numerical error.
+    #       It reflects the granularity of deploying whole modules and the
+    #       competing effects of r² volume growth vs. linear mass growth.
+    # NOTE: m_dot is feedstock-agnostic — it is determined entirely by reactor
+    #       geometry and payload budget. This figure is not split by feedstock.
+    """
+    saved_files = []
+
+    unique_temps = sorted(module1_df["T_C"].unique())
+    unique_taus  = sorted(module1_df["tau_s"].unique())
+
+    # Consistent color per tau across all figures
+    cmap   = plt.get_cmap("tab10")
+    colors = {tau: cmap(i) for i, tau in enumerate(unique_taus)}
+
+    for T_val in unique_temps:
+        sub_T = module1_df[module1_df["T_C"] == T_val].copy()
+
+        # Compute total fleet throughput
+        sub_T["total_mdot_kg_s"] = sub_T["N"] * sub_T["m_dot_kg_s"]
+
+        fig, ax = plt.subplots(figsize=(9, 6))
+
+        for tau_val in unique_taus:
+            sub_tau = sub_T[sub_T["tau_s"] == tau_val].sort_values("r_m")
+
+            r_vals     = sub_tau["r_m"].values
+            mdot_total = sub_tau["total_mdot_kg_s"].values
+
+            ax.plot(
+                r_vals,
+                mdot_total,
+                color=colors[tau_val],
+                linewidth=1.6,
+                label=f"τ = {tau_val/3600:.1f} hr"
+            )
+
+            # # --- Star at optimal (max total throughput) radius per curve ---
+            # idx_opt      = np.argmax(mdot_total)
+            # r_opt        = r_vals[idx_opt]
+            # mdot_opt     = mdot_total[idx_opt]
+            # N_opt        = sub_tau["N"].values[idx_opt]
+
+            # ax.plot(
+            #     r_opt,
+            #     mdot_opt,
+            #     marker="*",
+            #     markersize=12,
+            #     color=colors[tau_val],
+            #     markeredgecolor="black",
+            #     markeredgewidth=0.5,
+            #     linestyle="None",
+            #     zorder=5
+            # )
+            # ax.annotate(
+            #     f"r*={r_opt:.2f}m\nN={N_opt}",
+            #     xy=(r_opt, mdot_opt),
+            #     xytext=(r_opt + 0.02, mdot_opt),
+            #     fontsize=7,
+            #     color=colors[tau_val],
+            #     va="center"
+            # )
+
+        ax.set_xlabel("Vessel Inner Radius  [m]", fontsize=12)
+        ax.set_ylabel("Total Fleet Throughput  N × ṁ  [kg/s]", fontsize=12)
+        ax.set_title(
+            f"Deployment Throughput Surface\n"
+            f"T_reactor = {T_val}°C  |  Feedstock-agnostic (geometry only)\n"
+            f"★ = maximum throughput radius per residence time",
+            fontsize=11
+        )
+        ax.legend(fontsize=9)
+        ax.grid(True, alpha=0.3)
+        fig.tight_layout()
+
+        fig_name  = f"module2_throughput_surface_T{int(T_val)}.png"
+        fig_path  = os.path.join(output_dir, fig_name)
+        fig.savefig(fig_path, dpi=150, bbox_inches="tight")
+        plt.close(fig)
+
+        saved_files.append(fig_path)
+        print(f"Figure saved: {fig_path}")
+
+    return saved_files
+
+
+throughput_files = plot_throughput_surface(
+    module1_df = module1_df,
+    output_dir = "."
+)
+print(f"{len(throughput_files)} throughput surface figure(s) saved.")
+
+
+# --------------------------------------------------------------------------
+# 5. Save output JSON
+# --------------------------------------------------------------------------
+# Custom encoder to handle numpy scalar types from pandas
+class NumpyEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        if isinstance(obj, np.floating):
+            return float(obj)
+        if isinstance(obj, np.ndarray):
+            return obj.tolist()
+        return super().default(obj)
+output = {
+    "metadata": {
+        "module":        "module2_thermal_balance",
+        "feedstocks":    list(FEEDSTOCKS.keys()),
+        "moisture_range": [float(MOISTURE_RANGE[0]), float(MOISTURE_RANGE[-1])],
+        "T_feed_C":      T_FEED_C,
+        "T_rep_C":       T_rep,
+        "r_rep_m":       r_rep,
+        "units": {
+            "Q_reaction": "W",
+            "Q_preheat":  "W",
+            "Q_net":      "W",
+            "m_dot":      "kg/s",
+            "moisture":   "fraction (0=dry, 1=pure water)"
         },
-        "records": results_df.to_dict(orient="records")
-    }
+        "notes": [
+            "Q_net here is gross balance only (no heat exchanger recovery, no pump work).",
+            "Module 5 applies ε correction and subtracts W_pump + W_auxiliary.",
+            "All feedstock HHV and eta_HTC values are PLACEHOLDERS — replace with literature."
+        ]
+    },
+    "records": results_df.to_dict(orient="records")
+}
 
-    with open(OUTPUT_FILE, "w") as f:
-        json.dump(output, f, indent=2)
+with open(OUTPUT_FILE, "w") as f:
+    json.dump(output, f, indent=2, cls=NumpyEncoder)
 
-    print(f"\nOutput saved: {OUTPUT_FILE}  ({len(results_df)} records)")
-    print("Module 2 complete.")
+print(f"\nOutput saved: {OUTPUT_FILE}  ({len(results_df)} records)")
+print("Module 2 complete.")
