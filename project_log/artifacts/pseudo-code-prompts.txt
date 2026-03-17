@@ -1,0 +1,371 @@
+Prompt 1 - Module 3: Pressure Vessel Geometry and Mass
+    PROJECT CONTEXT (condensed)
+    A disaster relief company deploys airship-conveyed modular HTC reactor systems
+    to convert wet organic waste into hydrochar and recoverable energy. The system
+    must be energy self-sufficient. Full context: [Project Context V2] [Doc 4].
+
+    ARCHITECTURE DECISION (resolved prior to this session)
+    Functional architecture. One .py file. Pure functions with explicit arguments.
+    if __name__ == "__main__" driver block for standalone execution.
+    No classes. No global mutable state.
+
+    TASK
+    Implement module3_pressure_vessel.py as described below.
+
+    CONSTANTS BLOCK (top of file, all literals defined here, no magic numbers in equations)
+    Required entries with placeholder values and source tags:
+    SIGMA_YIELD_PA     = 205e6       # [Pa] 316 SS yield strength — source: ASME BPVC / MatWeb
+    SAFETY_FACTOR      = 3.5         # [-] pressure vessel service — source: ASME BPVC Div.1
+    WELD_EFFICIENCY    = 0.85        # [-] radiographed weld — source: ASME BPVC UW-12
+    RHO_STEEL          = 8000.0      # [kg/m³] 316 SS density — source: MatWeb
+    END_CAP_MASS_FRAC  = 0.175       # [-] ellipsoidal heads add ~17.5% to shell mass — source: Moss (2004)
+    T_REACTOR_RANGE    = [180, 200, 220, 250]  # [°C] operating temperature sweep
+    R_VESSEL_RANGE     = np.linspace(0.5, 10, 20)  # [m] inner radius sweep
+    L_VESSEL           = 3.0         # [m] vessel length — placeholder, justify in comment
+
+    FUNCTIONS TO IMPLEMENT
+
+    1. get_autogenous_pressure(T_celsius)
+    Inputs:  T_celsius — reactor temperature [°C], scalar or array
+    Returns: P_sat [Pa] — saturation pressure from CoolProp
+    Use:     CoolProp.CoolProp.PropsSI('P', 'T', T_kelvin, 'Q', 0, 'Water')
+    Docstring must state: units in, units out, CoolProp call used
+
+    2. calc_wall_thickness(P_pa, r_m, sigma_allowable_pa, eta_weld)
+    Inputs:  P_pa — pressure [Pa], r_m — inner radius [m],
+                sigma_allowable_pa — yield/safety_factor [Pa], eta_weld [-]
+    Returns: t [m] — required wall thickness
+    Equation: t = P * r / (sigma_allowable * eta_weld)
+    # ASSUMPTION: thin-wall approximation valid when t/r < 0.1 — flag if violated
+
+    3. calc_vessel_mass(r_m, L_m, t_m, rho_steel, end_cap_frac)
+    Inputs:  r_m, L_m, t_m — geometry [m], rho_steel [kg/m³], end_cap_frac [-]
+    Returns: M_vessel [kg] — total vessel mass including end caps
+    Equation: M_shell = rho_steel * 2 * pi * r * L * t
+                M_vessel = M_shell * (1 + end_cap_frac)
+    # ASSUMPTION: end cap mass approximated as fixed fraction of shell mass —
+    #             ellipsoidal head geometry, refine with exact formula in future analysis
+
+    4. run_module3_sweep(T_list, r_array, L, material_constants)
+    Inputs:  T_list [°C], r_array [m], L [m], material_constants dict
+    Returns: results_df — pandas DataFrame with columns:
+                [T_C, P_Pa, r_m, t_m, thin_wall_valid, M_vessel_kg]
+    Behavior: nested loop over T and r; flag thin_wall_valid as boolean;
+                print warning if thin_wall_valid is False for any row
+
+    DRIVER BLOCK (if __name__ == "__main__")
+    - Call run_module3_sweep with constants defined above
+    - Print a summary table (first 10 rows)
+    - Produce one matplotlib figure: M_vessel vs r_m, one curve per T_reactor
+    - Save full results to module3_output.json (records orientation)
+
+    HANDOFF OUTPUT — module3_output.json schema
+    {
+    "metadata": {
+        "module": "module3_pressure_vessel",
+        "T_reactor_C_values": [...],
+        "r_vessel_m_values": [...],
+        "L_vessel_m": ...,
+        "units": {"T": "degC", "P": "Pa", "r": "m", "t": "m", "M_vessel": "kg"}
+    },
+    "records": [
+        {"T_C": 180, "P_Pa": ..., "r_m": 0.5, "t_m": ...,
+        "thin_wall_valid": true, "M_vessel_kg": ...},
+        ...
+    ]
+    }
+
+    CODE QUALITY REQUIREMENTS
+    - Every function has a docstring: inputs, outputs, units, assumptions
+    - All # ASSUMPTION: tags must be present as written above
+    - No numeric literals in equations — all values reference named constants
+    - Student must be able to read and explain every equation independently
+    - Note in a comment that radius optimization is deferred —
+    a transient thermal analysis is required to resolve optimal radius (future work)
+Prompt 2 - Module 1: payload and Vessel Count
+    PROJECT CONTEXT (condensed)
+    A disaster relief company deploys airship-conveyed modular HTC reactor systems
+    to convert wet organic waste into hydrochar and recoverable energy. The system
+    must be energy self-sufficient. Full context: [Project Context V2] [Doc 4].
+
+    ARCHITECTURE DECISION (resolved prior to this session)
+    Functional architecture. One .py file. Pure functions with explicit arguments.
+    if __name__ == "__main__" driver block for standalone execution.
+
+    HANDOFF INPUT
+    Load module3_output.json produced by module3_pressure_vessel.py.
+    Parse into a pandas DataFrame. All Module 1 calculations operate on this DataFrame.
+
+    TASK
+    Implement module1_payload.py as described below.
+
+    CONSTANTS BLOCK
+    MODULE_MASS_SCALE_FACTOR = 1.5    # [-] geometric vessel mass × 1.5 accounts for
+                                        #     plumbing, internals, structural — source: engineering judgment
+                                        #     # ASSUMPTION: refine with detailed BOM in future analysis
+    
+    # Airship platform — default: Flying Whales LCA60T
+    # Source: Flying Whales official specifications (flyingwhales.fr)
+    # ASSUMPTION: published payload figure used directly —
+    #             verify against operator data before final analysis
+    AIRSHIP_PAYLOAD_KG       = 60000.0  # [kg] Flying Whales LCA60T rated payload — PLACEHOLDER verify
+    AIRSHIP_NAME             = "Flying Whales LCA60T"
+
+    # Airlander 10 as secondary reference (parametric override)
+    # AIRSHIP_PAYLOAD_KG     = 10000.0  # [kg] HAV Airlander 10 — PLACEHOLDER verify
+    # AIRSHIP_NAME           = "HAV Airlander 10"
+
+    FUNCTIONS TO IMPLEMENT
+
+    1. calc_module_mass(M_vessel_kg, scale_factor)
+    Inputs:  M_vessel_kg [kg], scale_factor [-]
+    Returns: M_module_kg [kg] — total module mass including plumbing and internals
+    Equation: M_module = M_vessel * scale_factor
+
+    2. calc_module_count(payload_kg, M_module_kg)
+    Inputs:  payload_kg [kg], M_module_kg [kg]
+    Returns: N [int] — maximum integer module count
+    Equation: N = floor(payload_kg / M_module_kg)
+    Note: flag if N == 0 for any (T, r) combination — infeasible point
+
+    3. calc_mdot_from_geometry(r_m, L_m, fill_fraction, residence_time_s, N, rho_slurry)
+    Inputs:  r_m [m], L_m [m], fill_fraction [-], residence_time_s [s],
+                N [int], rho_slurry [kg/m³]
+    Returns: m_dot [kg/s] — total system mass flow rate across N modules
+    Equation: V_reactor = pi * r² * L * fill_fraction
+                m_dot = (V_reactor * rho_slurry * N) / residence_time_s
+    # ASSUMPTION: fill_fraction = 1.0 (maximalist feasibility model)
+    # ASSUMPTION: rho_slurry = 1000 kg/m³ — refine with solids content data
+
+    4. run_module1(module3_df, payload_kg, airship_name, residence_times_s, L_m)
+    Inputs:  module3_df — DataFrame from module3_output.json,
+                payload_kg [kg], airship_name [str],
+                residence_times_s — list of residence times to sweep [s],
+                L_m [m] vessel length
+    Returns: results_df — DataFrame with columns:
+                [T_C, r_m, M_vessel_kg, M_module_kg, N, tau_s, m_dot_kg_s]
+                Drop rows where N == 0.
+
+    DRIVER BLOCK (if __name__ == "__main__")
+    - Load module3_output.json
+    - Call run_module1 with residence_times_s = [3600, 7200, 14400] (1, 2, 4 hr)
+    - Print summary: for each T_reactor, show max N and corresponding m_dot range
+    - Produce one matplotlib figure: N vs r_m, one curve per T_reactor
+    - Save full results to module1_output.json (records orientation)
+
+    HANDOFF OUTPUT — module1_output.json schema
+    {
+    "metadata": {
+        "module": "module1_payload",
+        "airship_platform": "Flying Whales LCA60T",
+        "payload_kg": 60000.0,
+        "residence_times_s": [3600, 7200, 14400],
+        "units": {"r": "m", "M_vessel": "kg", "M_module": "kg",
+                "m_dot": "kg/s", "tau": "s"}
+    },
+    "records": [
+        {"T_C": 180, "r_m": 0.5, "M_vessel_kg": ..., "M_module_kg": ...,
+        "N": ..., "tau_s": 3600, "m_dot_kg_s": ...},
+        ...
+    ]
+    }
+
+    CODE QUALITY REQUIREMENTS
+    - Every function has a docstring: inputs, outputs, units, assumptions
+    - All # ASSUMPTION: tags present as written
+    - No magic numbers in equations
+    - Volume as secondary constraint: add a comment flagging that envelope volume
+    has not been checked against airship cargo bay dimensions — future work item
+Prompt 3 - module 2: Reactor Thermal Energy Balance 
+    PROJECT CONTEXT (condensed)
+    A disaster relief company deploys airship-conveyed modular HTC reactor systems
+    to convert wet organic waste into hydrochar and recoverable energy. The system
+    must be energy self-sufficient. Full context: [Project Context V2] [Doc 4].
+
+    ARCHITECTURE DECISION (resolved prior to this session)
+    Functional architecture. One .py file. Pure functions with explicit arguments.
+    if __name__ == "__main__" driver block for standalone execution.
+
+    HANDOFF INPUT
+    Load module1_output.json produced by module1_payload.py.
+    Parse into a pandas DataFrame. m_dot values and (T, r, N) combinations
+    from this file are the basis for all Module 2 calculations.
+
+    TASK
+    Implement module2_thermal_balance.py as described below.
+
+    CONSTANTS BLOCK
+    C_P_WATER       = 4180.0    # [J/kg·K] specific heat of water — source: NIST
+    T_FEED_C        = 20.0      # [°C] feed inlet temperature — PLACEHOLDER assumed ambient
+    
+    # Feedstock parameters — PLACEHOLDER values, replace with peer-reviewed HTC literature
+    # Recommended sources: Kambo & Dutta (2015), Funke & Ziegler (2010)
+    FEEDSTOCKS = {
+        "municipal_food_waste": {
+            "HHV_dry_J_per_kg": 16e6,    # [J/kg dry] PLACEHOLDER — source: literature TBD
+            "eta_HTC":          0.60,     # [-] HTC conversion efficiency PLACEHOLDER
+            "label":            "Municipal Food Waste"
+        },
+        "sewage_sludge": {
+            "HHV_dry_J_per_kg": 12e6,    # [J/kg dry] PLACEHOLDER — source: literature TBD
+            "eta_HTC":          0.55,     # [-] HTC conversion efficiency PLACEHOLDER
+            "label":            "Sewage Sludge"
+        }
+    }
+    MOISTURE_RANGE  = np.linspace(0.0, 1.0, 50)   # [-] moisture fraction sweep
+
+    FUNCTIONS TO IMPLEMENT
+
+    1. calc_Q_reaction(m_dot, HHV_dry, eta_HTC, moisture_fraction)
+    Inputs:  m_dot [kg/s], HHV_dry [J/kg], eta_HTC [-], moisture_fraction [-]
+    Returns: Q_reaction [W]
+    Equation: Q_reaction = m_dot * HHV_dry * eta_HTC * (1 - moisture_fraction)
+    # ASSUMPTION: HHV_dry applies to dry fraction only — wet basis correction via (1 - moisture)
+
+    2. calc_Q_preheat(m_dot, moisture_fraction, c_p_water, T_reactor_C, T_feed_C)
+    Inputs:  m_dot [kg/s], moisture_fraction [-], c_p_water [J/kg·K],
+                T_reactor_C [°C], T_feed_C [°C]
+    Returns: Q_preheat [W]
+    Equation: Q_preheat = m_dot * moisture_fraction * c_p_water * (T_reactor_C - T_feed_C)
+    # ASSUMPTION: entire water fraction heated from T_feed to T_reactor — no flash or phase separation
+    # ASSUMPTION: heat exchanger recovery excluded here; subtracted in Module 5
+
+    3. calc_Q_net(Q_reaction, Q_preheat)
+    Inputs:  Q_reaction [W], Q_preheat [W]
+    Returns: Q_net [W]
+    Equation: Q_net = Q_reaction - Q_preheat
+    Note: structured so heat exchanger recovery term can be added here in Module 5
+            without restructuring — add comment to this effect
+
+    4. run_module2(module1_df, feedstocks, moisture_array, T_feed_C)
+    Inputs:  module1_df — DataFrame from module1_output.json,
+                feedstocks — dict of feedstock parameters,
+                moisture_array — np.array of moisture fractions,
+                T_feed_C [°C]
+    Returns: results_df — DataFrame with columns:
+                [T_C, r_m, tau_s, m_dot_kg_s, feedstock, moisture,
+                Q_reaction_W, Q_preheat_W, Q_net_W]
+
+    DRIVER BLOCK (if __name__ == "__main__")
+    - Load module1_output.json
+    - Call run_module2 for both feedstocks across full moisture range
+    - Produce one matplotlib figure per feedstock:
+        x-axis: moisture fraction, y-axis: Q_net [kW]
+        one curve per residence time τ at a representative (T, r) combination
+        mark Q_net = 0 crossover explicitly
+    - Print crossover moisture threshold for each feedstock and τ combination
+    - Save full results to module2_output.json (records orientation)
+
+    HANDOFF OUTPUT — module2_output.json schema
+    {
+    "metadata": {
+        "module": "module2_thermal_balance",
+        "feedstocks": ["municipal_food_waste", "sewage_sludge"],
+        "moisture_range": [0.0, 1.0],
+        "T_feed_C": 20.0,
+        "units": {"Q_reaction": "W", "Q_preheat": "W", "Q_net": "W",
+                "m_dot": "kg/s", "moisture": "fraction"}
+    },
+    "records": [
+        {"T_C": 180, "r_m": 0.5, "tau_s": 3600, "m_dot_kg_s": ...,
+        "feedstock": "municipal_food_waste", "moisture": 0.0,
+        "Q_reaction_W": ..., "Q_preheat_W": ..., "Q_net_W": ...},
+        ...
+    ]
+    }
+
+    CODE QUALITY REQUIREMENTS
+    - Every function has a docstring: inputs, outputs, units, assumptions
+    - All # ASSUMPTION: tags present as written
+    - No magic numbers in equations
+    - Comment explicitly: Q_net is structured for Module 5 extension —
+    heat exchanger recovery (ε term) and pump work subtracted there
+Prompt 4 - Module 4: HXR and Pump (stub)
+    PROJECT CONTEXT (condensed)
+    A disaster relief company deploys airship-conveyed modular HTC reactor systems
+    to convert wet organic waste into hydrochar and recoverable energy. The system
+    must be energy self-sufficient. Full context: [Project Context V2] [Doc 4].
+
+    ARCHITECTURE DECISION (resolved prior to this session)
+    Functional architecture. One .py file. Pure functions with explicit arguments.
+    if __name__ == "__main__" driver block for standalone execution.
+
+    HANDOFF INPUT
+    Load module2_output.json produced by module2_thermal_balance.py.
+    No calculations are performed on this data in this module —
+    it is loaded only to confirm that Module 4 function signatures
+    accept compatible inputs.
+
+    TASK
+    Implement module4_hx_pump.py as stubs only.
+    No calculation bodies. Every function body is pass with a complete docstring.
+    The docstrings ARE the deliverable — they define the I/O contract
+    that Module 5 will depend on.
+
+    FUNCTIONS TO STUB
+
+    1. calc_Q_recovered(m_dot, c_p_hot, c_p_cold, T_hot_in, T_cold_in, epsilon)
+    Docstring must specify:
+    - Inputs: m_dot [kg/s], c_p_hot and c_p_cold [J/kg·K],
+                T_hot_in [°C] (reactor outlet ≈ T_reactor),
+                T_cold_in [°C] (feed temperature ≈ T_feed),
+                epsilon [-] heat exchanger effectiveness (0–0.85)
+    - Returns: Q_recovered [W]
+    - Method: ε-NTU, counterflow, no phase change, steady-state
+    - Equations to implement (written in docstring, not coded):
+        C_hot = m_dot * c_p_hot
+        C_cold = m_dot * c_p_cold
+        C_min = min(C_hot, C_cold)
+        Q_max = C_min * (T_hot_in - T_cold_in)
+        Q_recovered = epsilon * Q_max
+    - Assumption tag: steady-state counterflow; fouling neglected at this stage
+
+    2. calc_Q_preheat_net(Q_preheat, Q_recovered)
+    Docstring must specify:
+    - Inputs: Q_preheat [W] (from Module 2), Q_recovered [W]
+    - Returns: Q_preheat_net [W] — net preheat demand after recovery
+    - Equation (in docstring): Q_preheat_net = Q_preheat - Q_recovered
+    - Note: this is the term subtracted from Q_net in Module 5
+
+    3. calc_pump_work(m_dot, P_autogenous_pa, rho_slurry, eta_pump)
+    Docstring must specify:
+    - Inputs: m_dot [kg/s], P_autogenous_pa [Pa],
+                rho_slurry [kg/m³], eta_pump [-]
+    - Returns: W_pump [W]
+    - Equation (in docstring): W_pump = m_dot * P_autogenous_pa / (rho_slurry * eta_pump)
+    - Assumption tag: pump work dominated by pressurization;
+        Darcy-Weisbach friction term deferred to future analysis
+    - Assumption tag: eta_pump = 0.65 placeholder for slurry service
+
+    4. calc_W_auxiliary(Q_net_W, aux_fraction)
+    Docstring must specify:
+    - Inputs: Q_net_W [W], aux_fraction [-]
+    - Returns: W_auxiliary [W]
+    - Equation (in docstring): W_auxiliary = Q_net_W * aux_fraction
+    - Assumption tag: aux_fraction = 0.075 (midpoint of 5–10% range) — PLACEHOLDER
+
+    CONSTANTS BLOCK (stubs only — values for Module 5 use)
+    ETA_PUMP        = 0.65     # [-] slurry pump efficiency — PLACEHOLDER
+    AUX_FRACTION    = 0.075    # [-] auxiliary load as fraction of Q_net — PLACEHOLDER
+    EPSILON_DEFAULT = 0.70     # [-] heat exchanger effectiveness — PLACEHOLDER
+    C_P_WATER       = 4180.0   # [J/kg·K] — consistent with Module 2
+
+    DRIVER BLOCK (if __name__ == "__main__")
+    - Load module2_output.json (confirm file loads without error)
+    - Print: "Module 4 stubs loaded. I/O contracts defined. Ready for Module 5."
+    - Do not call any stub functions — bodies are pass
+
+    HANDOFF OUTPUT
+    module4_stubs.py itself is the handoff artifact.
+    No .json output from this module.
+    Module 5 imports calc_Q_recovered, calc_Q_preheat_net,
+    calc_pump_work, calc_W_auxiliary directly from module4_hx_pump.py.
+
+    CODE QUALITY REQUIREMENTS
+    - Docstrings are the primary deliverable — they must be complete and precise
+    - All # ASSUMPTION: tags present as written
+    - Constants block present with source annotations even on stubs
+    - Comment at top of file: "Module 4 stubs — calculation bodies deferred.
+    Implement before running Module 5 with non-zero HX recovery or pump work."
+
+

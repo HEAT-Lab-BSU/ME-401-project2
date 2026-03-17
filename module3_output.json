@@ -1,0 +1,683 @@
+{
+  "metadata": {
+    "module": "module3_pressure_vessel",
+    "T_reactor_C_values": [
+      180,
+      200,
+      220,
+      250
+    ],
+    "r_vessel_m_values": [
+      0.5,
+      0.5263,
+      0.5526,
+      0.5789,
+      0.6053,
+      0.6316,
+      0.6579,
+      0.6842,
+      0.7105,
+      0.7368,
+      0.7632,
+      0.7895,
+      0.8158,
+      0.8421,
+      0.8684,
+      0.8947,
+      0.9211,
+      0.9474,
+      0.9737,
+      1.0
+    ],
+    "L_vessel_m": 3.0,
+    "units": {
+      "T": "degC",
+      "P": "Pa",
+      "r": "m",
+      "t": "m",
+      "M_vessel": "kg"
+    }
+  },
+  "records": [
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.5,
+      "t_m": 0.010071,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 892.24
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.5263,
+      "t_m": 0.010601,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 988.63
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.5526,
+      "t_m": 0.011131,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1089.97
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.5789,
+      "t_m": 0.011661,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1196.25
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.6053,
+      "t_m": 0.012192,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1307.47
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.6316,
+      "t_m": 0.012722,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1423.63
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.6579,
+      "t_m": 0.013252,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1544.74
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.6842,
+      "t_m": 0.013782,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1670.79
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.7105,
+      "t_m": 0.014312,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1801.79
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.7368,
+      "t_m": 0.014842,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1937.72
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.7632,
+      "t_m": 0.015372,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2078.6
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.7895,
+      "t_m": 0.015902,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2224.43
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.8158,
+      "t_m": 0.016432,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2375.2
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.8421,
+      "t_m": 0.016962,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2530.91
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.8684,
+      "t_m": 0.017492,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2691.56
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.8947,
+      "t_m": 0.018022,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2857.15
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.9211,
+      "t_m": 0.018552,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3027.69
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.9474,
+      "t_m": 0.019082,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3203.18
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 0.9737,
+      "t_m": 0.019612,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3383.6
+    },
+    {
+      "T_C": 180,
+      "P_Pa": 1002810.5,
+      "r_m": 1.0,
+      "t_m": 0.020143,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3568.97
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.5,
+      "t_m": 0.015616,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1383.49
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.5263,
+      "t_m": 0.016438,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1532.95
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.5526,
+      "t_m": 0.01726,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1690.07
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.5789,
+      "t_m": 0.018082,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 1854.87
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.6053,
+      "t_m": 0.018904,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2027.32
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.6316,
+      "t_m": 0.019726,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2207.44
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.6579,
+      "t_m": 0.020548,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2395.23
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.6842,
+      "t_m": 0.02137,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2590.68
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.7105,
+      "t_m": 0.022191,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2793.8
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.7368,
+      "t_m": 0.023013,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3004.58
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.7632,
+      "t_m": 0.023835,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3223.02
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.7895,
+      "t_m": 0.024657,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3449.13
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.8158,
+      "t_m": 0.025479,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3682.91
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.8421,
+      "t_m": 0.026301,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3924.35
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.8684,
+      "t_m": 0.027123,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4173.45
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.8947,
+      "t_m": 0.027945,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4430.22
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.9211,
+      "t_m": 0.028767,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4694.65
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.9474,
+      "t_m": 0.029589,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4966.75
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 0.9737,
+      "t_m": 0.030411,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5246.51
+    },
+    {
+      "T_C": 200,
+      "P_Pa": 1554927.9,
+      "r_m": 1.0,
+      "t_m": 0.031232,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5533.94
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.5,
+      "t_m": 0.023296,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2063.83
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.5263,
+      "t_m": 0.024522,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2286.8
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.5526,
+      "t_m": 0.025748,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2521.19
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.5789,
+      "t_m": 0.026974,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 2767.02
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.6053,
+      "t_m": 0.0282,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3024.29
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.6316,
+      "t_m": 0.029426,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3292.99
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.6579,
+      "t_m": 0.030652,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3573.12
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.6842,
+      "t_m": 0.031878,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3864.69
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.7105,
+      "t_m": 0.033104,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4167.69
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.7368,
+      "t_m": 0.034331,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4482.12
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.7632,
+      "t_m": 0.035557,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4807.99
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.7895,
+      "t_m": 0.036783,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5145.29
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.8158,
+      "t_m": 0.038009,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5494.03
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.8421,
+      "t_m": 0.039235,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5854.2
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.8684,
+      "t_m": 0.040461,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 6225.8
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.8947,
+      "t_m": 0.041687,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 6608.84
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.9211,
+      "t_m": 0.042913,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 7003.31
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.9474,
+      "t_m": 0.044139,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 7409.22
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 0.9737,
+      "t_m": 0.045365,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 7826.56
+    },
+    {
+      "T_C": 220,
+      "P_Pa": 2319586.2,
+      "r_m": 1.0,
+      "t_m": 0.046591,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 8255.34
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.5,
+      "t_m": 0.039933,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3537.77
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.5263,
+      "t_m": 0.042035,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 3919.97
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.5526,
+      "t_m": 0.044136,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4321.76
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.5789,
+      "t_m": 0.046238,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 4743.16
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.6053,
+      "t_m": 0.04834,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5184.16
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.6316,
+      "t_m": 0.050442,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 5644.75
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.6579,
+      "t_m": 0.052543,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 6124.95
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.6842,
+      "t_m": 0.054645,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 6624.75
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.7105,
+      "t_m": 0.056747,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 7144.14
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.7368,
+      "t_m": 0.058848,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 7683.14
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.7632,
+      "t_m": 0.06095,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 8241.73
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.7895,
+      "t_m": 0.063052,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 8819.93
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.8158,
+      "t_m": 0.065154,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 9417.72
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.8421,
+      "t_m": 0.067255,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 10035.12
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.8684,
+      "t_m": 0.069357,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 10672.11
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.8947,
+      "t_m": 0.071459,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 11328.71
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.9211,
+      "t_m": 0.073561,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 12004.9
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.9474,
+      "t_m": 0.075662,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 12700.7
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 0.9737,
+      "t_m": 0.077764,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 13416.09
+    },
+    {
+      "T_C": 250,
+      "P_Pa": 3976174.9,
+      "r_m": 1.0,
+      "t_m": 0.079866,
+      "thin_wall_valid": true,
+      "M_vessel_kg": 14151.08
+    }
+  ]
+}

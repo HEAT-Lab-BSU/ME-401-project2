@@ -240,6 +240,97 @@ Summarize the most applicable process case studies for this topic with an emphas
 
 ---
 
+## Entry — 2026-03-16
+
+**Context:** Gathering parameters for final iteration of pseudo code
+
+**Intent:** map for myself and gather key input metrics for analysis
+
+**Prompt:**
+```
+[elicit]
+I am doing a mechanical analysis of hydrothermal carbonization reaction vessels. Help me find key metrics (pressure, temperature, material,...) that will allow me to do a meaningul analysis of the required wall thickness for a HTC reactor
+----
+[Claude Sonnet 4.6]
+We are working to finalize the first iteration of a pseudo code package.
+Your job is to help me flesh out and crystalize some crucial design dependencies and optimization hierarchies. text only, no code at this time.
+
+overview: thermal process characteristic sweep [ temperature, HHV, moisture content, autogen pressure, ideal vessel radius ] passes [pressure, radius] outputs to geometry function which evaluates wall thickness for different pressures as outputs [ reaction vessel mass, number of reactors, total volume reaction space ] which can be passed to a third function that sizes a heat exchanger and pump to reduce Q_in. All these considerations are then passed to a final function which creates a figure or set of figures that compares T, P values with a moisture level vs. mass flow rate  that is self sufficient.
+
+Critical concepts: the first two modules need to communicate. The mass flow rate is important and is a function of residency time (batch process) and this is how number of vessels vs geometry of vessel is coupled. 
+
+Final output: recommendation for number and size of vessels given expected feedstock moisture content and reaction temperature as a feasibility surface that uses a Q_net optimization as an implicit qualifier of the solution space.
+
+I am working to put this concept into very comprehensible terms and feel that  I am getting close, but it is still not strongly defined.
+
+Help me begin a brainstorm with very concise clarifying questions so that we can work towards prompts for specific python scripts at a later date.
+
+----
+[Claude Sonnet 4.6]
+    assuming batch, reaction time only (no ramp times). noting this large assumption for documentation of further analysis requirement
+    vessel radius bounds 10-0.5 meter (should be a variable that can be updated and explored further)
+    vessels should assume simplest scheduling (single phase operation) this is another note for further analysis: multi-phasic reactions would have a large impact on Q_net for the system (complementary heating cycles, assuming that pressure vessels do not need to be cooled to cycle)
+    T is the single free parameter for thermal sweeping. Autogenous pressures need to be included in solution array for use by mechanical analysis function
+    Conditional success = Q_net >= 0 for inclusion in feasibility surface. Ideally Q_net will be an easily accessed parameter that can be refined to include more data
+
+    Going forward, continue with more prompts framed as clarifying questions as well as concise overviews of the state of the concepts based on most recent input
+----
+
+mass flow rate in a function of vessel size and vessel count. Vessel size is a function of the pressure for a given reaction and optimal 'r' (thermal consideration), the mass for the vessel is a function of the wall thickness (mechanical consideration). The upper bound of the mass flow rate is based on the total volume and mass payload capacity for a given airship (provided as parameters). The higher the pressure, the more steel required to contain it. total reactor mass assumed to be 1.5 x mass of the vessel. This is the optimization space for reactor geometry
+the function should take an array of temperature and times for sweeping parameters (these will be based on literature values)
+N = integer value. vessel count is primarily constrained by mass / volume considerations for transport, but could further be coupled with more detailed reaction kinetics / control considerations etc.
+----
+
+The radius optimization should be exploring critical radii for reaction vessels to behave favorably. This is a little loose, especially since the maximal nature of the model neglects transient heat exchange, it is a pseudo steady state analysis. Maybe this one critical zone where a more refined analysis needs to take place. How does reactor radius impact heat and cooling cycles, it would be important to know slurry intake temp, have a heat addition strategy, look at critical radius where temp increases is fast, but there is also the need to maintain temp and cool. I don't mind making a simple assumption here to leave this consideration for later, but this seems like a very meaningful point of analysis.
+end caps should be included in pressure vessel mass, then the 1.5 scaling is applied to account for plumbing, components, structural
+The mass will be the primary evaluation metric at this phase
+----
+
+the radius can be treated as a swept value until a more detailed analysis until it can be coupled to thermal analysis
+for simplicity of prototype, residence time can be a swept value, producing families of curves
+This figure is meant to show clearly how given presumed moisture content (is the feedstock from a hurricane or a wild fire) what can be expected a throughput and energy sufficiency to run an operation
+----
+moisture content is a continuum 
+Q_net can be presented as a contour line
+the airship metrics are provided by a manufacturer, but a parametric option is crucial for eventual implementation next step: please provide me with a prompt for a new chat which will focus on creating each of these analysis tools in an efficient modular, comprehensible package. In my mind this would be an object oriented system, but I am open to best practice recommendations for creating a high quality, clean python code base using numpy, scipy, matplotlib, and coolprop
+
+----
+[model]
+
+----
+
+```
+**Response Summary:** started each response with a summary of new context and further clarifying questions with the aim of creating a fun psuedo code V1
+
+**What I Did With It:** Built psuedo code context and prompt for code development
+
+**Reflection:** This was a very useful interaction. I do think that my background prep allowed me to use the tool very effectively to hone in on an actionable path forward.
+
+## Entry — 2026-03-16
+**Context:** Beginning code generation
+
+**Intent:** Leverage system map and pseudo code to create first iteration of analysis package
+
+**Prompt:**
+```
+[Sonnet 4.6]
+we are beginning a code generation process within the larger project. I will provide context and we will craft explicit prompts for 5 new chats that will be the artifact generation spaces.
+
+The role of this chat is to build the high level context so that 5 individual prompts can be generated. Responses should begin with concise clarifying question and be working towards explicit affirmation that the 5 prompts be created.
+
+Context: appended psuedo code summary, 'project context V2' in project files.
+----
+[model]
+
+----
+
+```
+**Response Summary:** provided four prompts which were used to generate 4 script.py files
+
+**What I Did With It:** completed project analysis
+
+**Reflection:** The process of creating the conceptual maps before making code was helpful for me to really understand my own simplifying assumptions an necessary bounds. It also produced high quality prompts that made very good scripts.
+
 ## Entry — YYYY-MM-DD
 
 **Context:** What stage of the project were you in?

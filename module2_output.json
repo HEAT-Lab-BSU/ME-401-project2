@@ -1,0 +1,13 @@
+{
+  "metadata": {
+    "module": "module2_thermal_balance",
+    "feedstocks": [
+      "municipal_food_waste",
+      "sewage_sludge"
+    ],
+    "moisture_range": [
+      0.0,
+      1.0
+    ],
+    "T_feed_C": 20.0,
+    "T_rep_C": 

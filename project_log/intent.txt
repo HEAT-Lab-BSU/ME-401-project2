@@ -46,7 +46,7 @@
     - 4:02
     Concluding session. Prepared to begine pseudo code next session
 --------------------------------
-2026/03/09
+2026/03/11
     - 10:57 made aliasing map and defined file tree version 1 for open science protocol. Starting recap for current session
     - 11:50 worked over previous sessions and refined slightly. built new concepts / pseudo code map. next: identify required literature values
     - 13:08 identified initial research basis. Still missing some material properties, but the basic list of constant parameters is complete. taking break
@@ -54,3 +54,17 @@
     - 14:20 refining pseudo code foundation.
     break
     - 17:01 capture session log info
+--------------------------------
+2026/03/16
+    - 9:00 beginning first of week intended-path document
+    - 9:26 Finished with document, beginning block 1: reflection on state of project and next steps
+    - 10:03 completed overview of current state. Compiling crucial parameters for analysis
+    - 11:15 have the working basis for psuedo -> script process.
+    - 11:45 taking break
+    - 12:25 back. finalize psuedo code
+    - 1:28 pseudo code V1 prepared in model. Ready to generate code. Taking break.
+    - 3:45 beginning first code iteration
+    - 4:40 all 4 code modules complete and giving acceptable V1 results
+--------------------------------
+
+--------------------------------

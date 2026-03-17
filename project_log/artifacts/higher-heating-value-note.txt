@@ -1,0 +1,18 @@
+The Higher Heating Value (HHV), or gross calorific value, is
+the total thermal energy released during complete fuel combustion, including latent heat from condensing water vapor in the exhaust back to liquid at
+. It represents the maximum potential energy available, commonly used in North American engineering. 
+Key Aspects of Higher Heating Value (HHV):
+
+    Definition: Also known as gross energy, upper heating value, or gross calorific value (GCV).
+    Water Condensation: HHV assumes all water produced during combustion is condensed into a liquid, capturing the latent heat of vaporization.
+    Common Applications: Primarily used in North America to calculate boiler efficiency and for fuels where water vapor condensation is practical (e.g., condensing boilers).
+    Compared to LHV: HHV is higher than the Lower Heating Value (LHV) because it includes this latent heat, whereas LHV treats it as lost energy.
+    Measurement: Determined via a bomb calorimeter (ASTM standards). 
+
+Common Fuel HHV Examples (Approximate):  (Mj/kg)
+   
+    Natural Gas: 42.5
+    Diesel: 45.9
+    Gasoline: 46.7
+    Coal: 34.1
+    Hydrogen: 141.9
