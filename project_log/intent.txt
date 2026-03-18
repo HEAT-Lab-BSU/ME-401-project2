@@ -70,6 +70,12 @@
     - 8:30 reviewing yesterday and starting project logs
     - 9:00 beginning review phase [1]
     - 9:30 need to create a figure that represents total throughput of deployed system
-    - 10:15 figure created. Starting report diagram / taking break
-    
+    - 10:15 figure created. Starting report diagram / taking break [b]
+    - 11:00 starting report diagram [2]
+    - 12:00 first draft of report complete
+    - 12:15 refining pseudo code to meet new analysis scope
+    - 12:40 ready to add figures to report [b]
+    - 4:15 beginning technical report editing [3]
+    - 5:11 finished report. beginning presentation
+    - 6:45 ~ 0.5 % complete on presentation slides. finished for the day
 --------------------------------

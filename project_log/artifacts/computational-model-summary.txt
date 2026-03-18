@@ -1,0 +1,147 @@
+MODULE 1 - Payload & Buoyancy Feasibility — Implementation Summary
+    Module 1 translates the pressure vessel geometry produced by Module 3 into a feasible throughput envelope for the airship deployment scenario. It is the gateway between structural design and process capacity.
+    What it does:
+    Module 1 takes vessel mass from Module 3, scales it by a factor of 1.5 to account for plumbing, internals, and structural framing, then divides the airship payload budget by that module mass to determine how many reactor units the platform can carry. From module count and reactor geometry, it computes total system mass flow rate (m_dot) across a sweep of residence times.
+    Key outputs:
+
+    N: integer module count per deployment
+    m_dot: total system throughput [kg/s and kg/hr], swept across r, T_reactor, and residence time
+    Feasibility flag: design points where N = 0 (vessel too heavy for payload) are identified and dropped
+
+    Platform:
+    Flying Whales LCA60T, 60,000 kg rated payload (published spec — not yet operator-verified).
+    Residence times swept: 1, 2, and 4 hours (3600, 7200, 14400 s), covering the HTC literature range for municipal feedstocks.
+    Primary assumptions:
+
+    Scale factor of 1.5 on vessel mass is engineering judgment; to be refined with a detailed bill of materials
+    Slurry density assumed 1000 kg/m³ (near-water, valid below ~15% solids)
+    Fill fraction assumed 1.0 (maximalist upper bound on throughput)
+    Vessel length fixed at 3.0 m for this sweep
+    Cargo bay volumetric check not yet performed — payload mass is the only constraint applied
+
+    Role in the module chain:
+    Module 1 receives M_vessel from Module 3 and produces m_dot, which is the common throughput variable passed into Module 2 (thermal balance) and Module 5 (self-sufficiency integration). Module 1 and Module 3 are mutually dependent on T_reactor and must be solved together before downstream modules are meaningful.
+    Output file: module1_output.json — records orientation with metadata header including platform, payload, assumptions, and units.
+
+MODULE 2 — REACTOR THERMAL ENERGY BALANCE
+    HTC Airship Disaster Relief System | Context Summary for Technical Report Draft
+    ================================================================================
+
+    PURPOSE
+    Computes the gross thermal energy balance of the HTC reactor as a function of
+    moisture content, mass flow rate, and reactor temperature. Primary output is
+    Q_net — the net thermal power available after accounting for reaction energy
+    release and feed preheating demand. This module does not include heat exchanger
+    recovery or parasitic losses; those are reserved for Module 5.
+
+    GOVERNING EQUATIONS
+    Q_reaction = m_dot × HHV_dry × η_HTC × (1 - moisture_fraction)
+    Q_preheat  = m_dot × moisture_fraction × c_p_water × (T_reactor - T_feed)
+    Q_net      = Q_reaction - Q_preheat
+
+    Q_net > 0 indicates a thermally self-sustaining operating point (gross basis).
+    Q_net = 0 defines the crossover moisture threshold — the moisture fraction above
+    which preheating demand exceeds recoverable reaction energy.
+
+    KEY ASSUMPTIONS
+    - HHV_dry applies to the dry fraction only; wet basis corrected via (1 - moisture)
+    - η_HTC is a fixed scalar per feedstock; does not vary with T or residence time
+    - Entire water fraction heated from T_feed (20°C, assumed ambient) to T_reactor
+    - No flash evaporation or phase change modeled; water remains liquid throughout
+    (physically consistent with autogenous pressure operation)
+    - c_p_water treated as constant at 4180 J/kg·K across full temperature range
+    - Heat exchanger recovery (ε term) excluded here; applied in Module 5
+    - All feedstock HHV and η_HTC values are PLACEHOLDERS pending literature values
+
+    FEEDSTOCKS MODELED
+    - Municipal food waste:  HHV_dry = 16 MJ/kg (placeholder), η_HTC = 0.60
+    - Sewage sludge:         HHV_dry = 12 MJ/kg (placeholder), η_HTC = 0.55
+    Recommended replacement sources: Kambo & Dutta (2015), Funke & Ziegler (2010)
+
+    INPUTS
+    - module1_output.json: provides m_dot [kg/s] for all (T, r, τ) combinations
+    - Moisture fraction swept 0.0 → 1.0 (50 points)
+    - T_feed = 20°C, c_p_water = 4180 J/kg·K (NIST)
+
+    OUTPUTS
+    - module2_output.json: full results table, all feedstock × (T, r, τ) × moisture
+    combinations; consumed by Module 5
+    - Q_net vs. moisture figures: one per feedstock, crossover threshold annotated
+    - Deployment throughput surface figures: N × m_dot vs. vessel radius, one per
+    T_reactor value; stars mark optimal radius per residence time curve
+
+    KEY RESULT — THROUGHPUT SURFACE FINDING
+    Total fleet throughput (N × m_dot) does not increase monotonically with vessel
+    radius. The floor() discretization of module count (N = floor(payload / M_module))
+    produces a sawtooth oscillation as radius increases — volume grows as r² while
+    module count drops in integer steps. The optimal deployment radius is the local
+    maximum of this surface for each (T, τ) combination. Notably, the optimal radius
+    appears largely τ-independent, suggesting the geometric constraint dominates over
+    residence time in determining the best module size.
+
+    MODULE 5 EXTENSION POINT
+    Q_net as computed here is the gross balance. Module 5 will extend it as:
+    Q_net_effective = Q_reaction - Q_preheat × (1 - ε) - W_pump - W_auxiliary
+    No restructuring of Module 2 functions is required to implement this.
+
+    PLACEHOLDERS TO RESOLVE BEFORE FINAL REPORT
+    - HHV_dry and η_HTC for both feedstocks — obtain from peer-reviewed HTC literature
+    - T_feed assumption — revise if deployment climate differs significantly from 20°C
+    - c_p_water constant assumption — acceptable for first-pass; revisit if precision required
+    ================================================================================
+
+MODULE 3 — Pressure Vessel Mechanical Analysis
+    Context summary for technical report draft
+
+    Module 3 computes the required wall thickness and total mass of the HTC reactor pressure vessel as a function of operating temperature and vessel inner radius. It is the structural backbone of the payload analysis: because HTC operates under autogenous pressure (the reactor seals and pressurizes to the saturation pressure of water at the operating temperature), higher reactor temperatures demand thicker vessel walls, which increases module mass and directly reduces the number of modules an airship can carry.
+    Governing equations:
+    The thin-wall hoop stress relation gives required thickness: t = P·r / (σ_allowable · η_weld). Total vessel mass is computed as M_vessel = ρ_steel · 2π·r·L·t · (1 + f_endcap), where the end cap fraction (17.5%) approximates ellipsoidal head geometry. Autogenous pressure at each temperature is extracted from the water saturation curve via CoolProp.
+    Key parameters:
+    Material is 316 stainless steel (σ_yield = 205 MPa). Safety factor of 3.5 gives σ_allowable ≈ 58.6 MPa. Weld efficiency η_weld = 0.85 (radiographed). Vessel length L = 3.0 m (placeholder pending Module 2 residence time output). Temperature sweep: 180, 200, 220, 250°C. Radius sweep: 0.5–1.0 m.
+    Primary output:
+    Vessel mass as a function of {T_reactor, r_vessel}, saved to module3_output.json. A plot of M_vessel vs. r_m at each temperature is produced. The thin-wall validity condition (t/r < 0.1) is checked for every operating point and flagged if violated.
+    Module coupling:
+    M_vessel feeds directly into Module 1 (payload budget → module count). The autogenous pressure derived here is reused in Module 5 (pump pressurization work). T_reactor is a shared design parameter across Modules 2, 3, and 5 — sweeping it propagates through all three.
+    Key design tension captured:
+    Higher T_reactor improves reaction kinetics (Module 2) but increases autogenous pressure, requiring thicker walls, heavier vessels, and fewer deployable modules. This tradeoff is the central output of Module 3 and must be resolved jointly with Module 1.
+    Deferred work:
+    Optimal radius selection requires a transient thermal analysis (heat loss rate vs. throughput vs. wall mass) and is not resolved at this stage. Vessel length will be updated once Module 2 provides residence time and volumetric throughput.
+
+MODULE 4 — Heat Exchanger & Pump Work
+    HTC Airship Disaster Relief System | module4_hx_pump.py
+
+    PURPOSE
+    Module 4 quantifies the two primary energy recovery and parasitic loss terms
+    that feed into the Module 5 self-sufficiency inequality:
+    Q_net >= W_pump + W_auxiliary
+
+    It does not stand alone — it is a calculation layer between Module 2
+    (thermal balance) and Module 5 (integration). No .json output is produced;
+    functions are imported directly by Module 5.
+
+    FUNCTIONS AND GOVERNING EQUATIONS
+
+    1. calc_Q_recovered — ε-NTU heat exchanger model
+    Computes heat transferred from hot reactor outlet to cold feed stream.
+    C_hot  = m_dot * c_p_hot
+    C_cold = m_dot * c_p_cold
+    C_min  = min(C_hot, C_cold)
+    Q_max  = C_min * (T_hot_in - T_cold_in)
+    Q_recovered = epsilon * Q_max
+    Method: steady-state counterflow, no phase change, fouling neglected.
+
+    2. calc_Q_preheat_net — net preheat demand after recovery
+    Q_preheat_net = max(0, Q_preheat - Q_recovered)
+    This term enters Module 5 as: Q_net = Q_reaction - Q_loss - Q_preheat_net
+
+    3. calc_pump_work — pressurization work
+    W_pump = m_dot * P_autogenous_pa / (rho_slurry * eta_pump)
+    Dominated by pressurization to reactor pressure (10–40 bar).
+    Darcy-Weisbach friction deferred to future analysis.
+
+    4. calc_W_auxiliary — auxiliary electrical load estimate
+    W_auxiliary = Q_net_W * aux_fraction
+    Proportional placeholder for instrumentation, controls, comms load.
+
+    PLACEHOLDER CONSTANTS (to be refined with hardware data)
+    ETA_
