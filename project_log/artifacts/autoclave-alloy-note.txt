@@ -1,0 +1,59 @@
+304L:   https://www.matweb.com/search/datasheet.aspx?matguid=abc4415b0f8b490387e3c922237098da&ckck=1 
+    Tensile Strength, Ultimate 	505 MPa
+    Tensile Strength, Yield 	215 MPa @Strain 0.2 %	
+    Specific Heat Capacity 	0.500 J/g-°C
+    Thermal Conductivity  	16.2 W/m-K
+                            @Temperature 0.000 - 100 °C  
+                            21.5 W/m-K
+                            @Temperature 500 °C	
+=======================
+316L: https://www.matweb.com/search/datasheet.aspx?MatGUID=1336be6d0c594b55afb5ca8bf1f3e042
+    Tensile Strength, Ultimate 	560 MPa	
+    Tensile Strength, Yield 	290 MPa
+    Specific Heat Capacity 	0.500 J/g-°C
+    Thermal Conductivity 	14.0 - 15.9 W/m-K
+=======================
+Stainless steel is the dominant choice for HTC reactors due to the corrosive, acidic aqueous environment (HTC process water has pH < 7).
+
+    Stainless steel 304 (SS 304): Used in lab and bench-scale reactors (e.g., 1 L stirred reactors). Suitable for lower temperatures but has limitations in chloride environments.
+    Stainless steel 316/316L: More common for pilot and industrial scale due to better corrosion resistance (Mo content). Frequently cited in HTC literature.
+    Duplex stainless steels: Worth considering for higher-pressure designs where higher yield strength reduces wall thickness.
+    2¼Cr-1Mo steel: Used in high-temperature reactor vessels (e.g., nuclear HTTR at 122–160 mm wall thickness), relevant if designing for the upper end of HTC temperatures.
+
+    allowable stress at the design temperature from your chosen code (ASME, AD Merkblatt, PED/EN 13445, etc.). Material properties degrade significantly at elevated temperatures — at 300°C, allowable stresses for austenitic stainless steels are roughly 15–20% lower than at room temperature.
+=======================
+Wall Thickness Calculation Inputs
+
+    For a cylindrical shell under internal pressure, the key formula inputs (per ASME Section VIII, Div. 1) are:
+
+    t = P⋅R \ (S⋅E−0.6p)​
+
+    where:
+
+        P = design pressure (bar/MPa) — set above maximum expected operating pressure
+        R = internal radius of the vessel
+        S = maximum allowable stress at design temperature (from ASME Section II, Part D or equivalent)
+        E = joint efficiency factor (depends on weld type and radiographic examination: 1.0 for full radiography, 0.85 for spot, 0.7 for none)
+
+    Additional factors to incorporate:
+
+        Corrosion allowance: Typically 1–3 mm for stainless steel in acidic HTC process water. The low pH and organic acid content of HTC liquor makes this non-trivial.
+        Vessel geometry: Pilot-scale reactors range from ~0.1 m³ (height ~4.7 m, diameter ~3.1 m for larger units) down to bench-scale at a few liters. The diameter-to-thickness ratio drives whether thin-wall or thick-wall (Lamé) formulas apply.
+        Head design: Hemispherical, torispherical, or ellipsoidal heads each have different thickness requirements. Hemispherical heads require roughly half the wall thickness of the cylindrical shell.
+        Nozzle reinforcement and openings: Feed inlet, product outlet, pressure relief, instrumentation ports — each opening requires reinforcement calculations.
+        Fatigue from cyclic pressurization: Batch HTC reactors undergo repeated pressure/temperature cycles. If the number of cycles exceeds ASME thresholds (~1,000 full-range cycles), a fatigue analysis per ASME VIII Div. 2 may be required.
+=======================
+The choice of design code matters more than you might expect — 
+    Bernard (1986) showed that for the same vessel (316 SS, 125 mm ID, 400 bar), different codes (Lamé, ASME, AD Merkblatt, Stoomwezen) yield materially different wall thicknesses due to how they handle safety factors.
+=======================
+Summary of Key Design Inputs
+    Parameter	Typical Range	Notes
+    Design temperature	200–350°C	Include margin above max operating T
+    Design pressure	25–100 bar	Saturated steam + reaction gas + margin
+    Material	SS 304, SS 316L, duplex SS	Choose based on corrosion and strength
+    Allowable stress (at T)	100–130 MPa (austenitic SS at 250°C)	From ASME Sec II Part D
+    Joint efficiency	0.7–1.0	Depends on NDE level
+    Corrosion allowance	1–3 mm	Acidic process water
+    Vessel diameter	0.1–3 m	Application-dependent
+    Design code	ASME VIII Div.1/2, EN 13445, AD Merkblatt	Bernard (1986) compared codes and found wall thickness can vary by >30% depending on code choice
+=======================

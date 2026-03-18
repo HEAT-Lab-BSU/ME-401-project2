@@ -1,0 +1,90 @@
+--------------------------------
+2026/03/07
+    1:00 
+    My plan here is to work through the process of finishing the definition of what undertaking this project really means.
+    I plan to spend 5 hours on this today
+    1- documentation resource version 1
+    2- use documentation workflow to begin and define the project context
+    3- draft specifications
+    4- research and refine specifications by incorporating data, analytical requirements, contextual constraints
+    5- compile concepts and process / document
+    1:39 [1]
+    Starting work on direct response to project document
+    2:26 taking break
+    2:31 [2]
+    Basic research and brain storming.
+    3:24
+    Have identified a research process that seems very useful. Taking a break and then going to check in on time and process. Think about today's outcomes.
+    3:35
+    Exploring Elicit ai resource to begin to bound the research direction of this project.
+    4:09
+    Recognizing that the possible avenues of exploration are many. Resetting to define goals for today and make plan to get a specification table drafted.
+    4:18 
+    Got distracted by doing one last research foray into airships. so cool. Now I am going to make a rough template of my project specifications.
+    4:37 [3]
+    Finished first prompt, beginning a first draft process for specification table
+    4:51
+    have created a .csv file that contains a first version of the specification table for further synthesis. Taking a break and then plan to synthesize todays outcomes
+    5:00 [4]
+    Beginning synthesis and documentation work for today's process
+    5:50
+    Finished compiling summary figures and session-log. 
+--------------------------------
+2026/03/09
+    - 10:45
+    beginning intent log
+    - 10:51 [1]
+    session and intended path documents are created and intended path is filled out. Starting block 1
+    - 12:33 [1][2][3]
+    Completed draft 1 of scoping and governing equation artifacts. Taking break. Next step: explore meaningful context constraints to apply to analysis.
+    - 2:00 [4]
+    Return from break. Working to build a system map that will be the last artifact before spec table is designed
+    - 3:15
+    Taking another break. System map and specification table rough drafts are complete. Planning to tackle Psuedo Code process next
+    - 3:37
+    Synthesized and organized some existing frameworks. Starting new prompt chain on psuedo code and system mapping best practices
+    - 4:02
+    Concluding session. Prepared to begine pseudo code next session
+--------------------------------
+2026/03/11
+    - 10:57 made aliasing map and defined file tree version 1 for open science protocol. Starting recap for current session
+    - 11:50 worked over previous sessions and refined slightly. built new concepts / pseudo code map. next: identify required literature values
+    - 13:08 identified initial research basis. Still missing some material properties, but the basic list of constant parameters is complete. taking break
+    - 13:37 back. considering how research results - system map - pseudo code fit together. what is the synthesis artifact that concludes this section of the project
+    - 14:20 refining pseudo code foundation.
+    break
+    - 17:01 capture session log info
+--------------------------------
+2026/03/16
+    - 9:00 beginning first of week intended-path document
+    - 9:26 Finished with document, beginning block 1: reflection on state of project and next steps
+    - 10:03 completed overview of current state. Compiling crucial parameters for analysis
+    - 11:15 have the working basis for psuedo -> script process.
+    - 11:45 taking break
+    - 12:25 back. finalize psuedo code
+    - 1:28 pseudo code V1 prepared in model. Ready to generate code. Taking break.
+    - 3:45 beginning first code iteration
+    - 4:40 all 4 code modules complete and giving acceptable V1 results
+--------------------------------
+2026/03/17
+    - 8:30 reviewing yesterday and starting project logs
+    - 9:00 beginning review phase [1]
+    - 9:30 need to create a figure that represents total throughput of deployed system
+    - 10:15 figure created. Starting report diagram / taking break [b]
+    - 11:00 starting report diagram [2]
+    - 12:00 first draft of report complete
+    - 12:15 refining pseudo code to meet new analysis scope
+    - 12:40 ready to add figures to report [b]
+    - 4:15 beginning technical report editing [3]
+    - 5:11 finished report. beginning presentation
+    - 6:45 ~ 50 % complete on presentation slides. finished for the day
+--------------------------------
+2026-03-18
+    - 8:20 beginning project logs.
+    - 8:40 logs complete. starting presentation [1]
+    - 9:45 presentation complete
+    - 10:00 reviewing presentation / perusing other similar resources
+    - 11:00 working towards github upload of discovery project [2]
+    - 12:00 upload complete
+    - project complete!
+--------------------------------

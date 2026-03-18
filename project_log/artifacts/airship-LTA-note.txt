@@ -1,0 +1,16 @@
+Main Parameters: https://atlas-lta.com/atlant_cargo_airship/
+
+    Parameter 	ATLANT 30 	ATLANT 100 	ATLANT 300
+    Length, m 	99.0 	140.0 	198.0
+    Width, m 	58.0 	67.0 	97.0
+    Height, m 	23.5 	33.4 	47.0
+    Total volume, cub.m. 	38 900 	110 000 	311 500
+    Maximal payload, kg 	18 000 	60 000 	165 000
+    Payload at the crane mode, kg 	10 000 	30 000 	65 000
+    Nominal range, km 	2 000 	2 000 	2 000
+    Ferry range, km 	4 000 	4 000 	4 000
+    Cruise speed, km/h 	120 	120 	120
+    Maximal speed, km/h 	140 	145 	150
+    Hydrocarbon fuel consumption, kg/h 	295 	590 	1 180
+    Cargo bay volume, cub.m 	1 100 	2 800 	6 100
+    Cargo bay dimensions, LxWxH, m 	25.8x9x5 	36.5х11х7 	51.5х14х8.7 

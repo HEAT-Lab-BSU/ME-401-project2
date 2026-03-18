@@ -1,0 +1,30 @@
+Project: HTC Airship Disaster Relief System — Python Feasibility Analysis Package
+Objective: Build a modular, well-documented Python package that produces a feasibility surface showing energy self-sufficient operating regimes for a batch HTC reactor system, as a function of feedstock moisture content and system mass flow rate. This is a best-case (maximalist) feasibility model — all efficiency terms start at theoretical maximum. If the system is not feasible at 100% efficiency, no further refinement is warranted.
+Libraries: numpy, scipy, matplotlib, CoolProp. No other dependencies. CoolProp replaces manual steam table lookups for autogenous pressure derivation.
+Architecture question for the AI: Recommend whether object-oriented (class-based) or functional (module-based) architecture is more appropriate for a Python beginner building a reproducible engineering analysis package with these characteristics. Justify the recommendation before writing any code.
+
+The five analysis modules and their sequence:
+Module 3 — Pressure Vessel Geometry and Mass
+Inputs: T_reactor (scalar or array), vessel inner radius r (swept, 0.5–10m), vessel length L, material properties (σ_yield, ρ_steel, safety factor, weld efficiency)
+Derived internally: autogenous pressure P from CoolProp saturation pressure at T_reactor
+Calculates: wall thickness t via hoop stress, cylindrical shell mass, end cap mass (ellipsoidal heads, standard approximation), total vessel mass. End cap mass is included in geometric vessel mass before scaling.
+Output array: [T, P, r, t, M_vessel_geometric] for each (T, r) combination
+Flag explicitly: radius optimization is deferred — radius is swept, not optimized. A transient thermal analysis is required to resolve optimal radius and must be noted as a future work item in code comments.
+Module 1 — Payload and Vessel Count
+Inputs: M_vessel_geometric (from Module 3), airship payload capacity (parametric input, with a named real platform as the default — recommend Airlander 10 or Flying Whales LCA60T based on published specs), scaling factor 1.5x applied to geometric vessel mass to account for plumbing, internals, and structural components
+Calculates: total module mass = M_vessel_geometric × 1.5, maximum integer vessel count N = floor(payload / module mass), flags volume as a secondary constraint (not yet active)
+Output: N as function of (T, r), feasible (T, r, N) combinations
+Module 2 — Reactor Thermal Energy Balance
+Inputs: m_dot (derived from vessel volume, fill fraction = 1.0, residence time τ, vessel count N), moisture fraction (swept 0.0–1.0), T_reactor, feedstock HHV and η_HTC (literature values provided as parameter arrays — municipal food waste and sewage sludge as the two primary feedstocks), T_feed (ambient feed temperature)
+Calculates: Q_reaction = m_dot × HHV_dry × η_HTC × (1 - moisture), Q_preheat = m_dot × moisture × c_p_water × (T_reactor - T_feed), Q_net = Q_reaction - Q_preheat
+Note: heat exchanger recovery and pump work are explicitly excluded at this stage. Q_net is structured so these terms can be subtracted later without restructuring the calculation.
+Output: Q_net as function of (moisture, m_dot, T_reactor) for each residence time τ, producing families of curves
+Module 4 — Heat Exchanger and Pump (stub only at this stage)
+Structure the function signatures and input/output contracts now. Leave calculation bodies as pass with docstrings describing what will be implemented. This ensures Module 2 output is already compatible with Module 4 inputs when it is built.
+Module 5 — Feasibility Surface Integration and Visualization
+Assembles outputs of Modules 1, 2, 3. Feasibility condition: Q_net >= 0. Produces a 2D contour figure with moisture content on one axis, mass flow rate on the other. Q_net = 0 contour is the feasibility boundary. Q_net is shown as a continuous contour field so margin above the boundary is visible. Residence time produces a family of curves or a parameter overlay. Airship platform is a named default with parametric override. Disaster scenario interpretation (e.g. high moisture = hurricane debris, low moisture = wildfire ash) is left to the reader — moisture axis is a continuous numerical axis with no hardcoded scenario labels.
+
+Code quality requirements:
+All physical constants and literature values defined in a single constants block at the top of each module with source annotations. No magic numbers in equations. Every function has a docstring stating inputs, outputs, units, and assumptions. Assumptions that require future refinement are marked with a consistent tag, suggested: # ASSUMPTION: [description] — refine in future analysis. The student must be able to read, explain, and reproduce every equation independently.
+
+Sequence of delivery: Request one module at a time in the order 3 → 1 → 2 → 4 stub → 5. Do not proceed to the next module until the current one is reviewed and accepted.

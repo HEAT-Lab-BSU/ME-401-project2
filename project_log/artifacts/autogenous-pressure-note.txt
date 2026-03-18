@@ -1,0 +1,41 @@
+Autogenous pressure—the self-pressurization of a container (typically a cryogenic tank) by vaporizing a portion of its own liquid content—is modeled primarily
+    using Computational Fluid Dynamics (CFD) in 2D or 3D, focusing on multiphase flow, heat transfer, and phase change at the liquid-vapor interface. 
+    Key modeling approaches include the Volume-of-Fluid (VOF) method and the Sharp Interface Method (SI-CFD), which are validated against experimental data (e.g., from NASA K-site or EDU tanks) to predict tank pressure, ullage temperature, and mass transfer rates. 
+    1. Key Modeling Approaches
+
+        Volume-of-Fluid (VOF) Method: This approach defines a volume fraction for each phase in a cell, with interfacial mass and momentum transfer modeled as source terms. VOF is effective at tracking the movement of the liquid-vapor interface during pressurization and draining.
+        Sharp Interface Method (SI-CFD): Governing equations are solved separately for the liquid and vapor domains, with the phases coupled at the interface through boundary conditions (continuity of velocities, shear stresses, and energy balance).
+        Low-Order/Nodal Modeling: For system-level simulations, 1D models (e.g., developed in EcosimPro) are used to capture coupled thermofluid behavior, such as in liquid rocket engine propulsion systems. 
+
+    2. Governing Equations and Physics
+    Modeling involves solving the Navier-Stokes equations for conservation of mass, momentum, and energy in both phases. 
+
+        Interfacial Mass Transfer: Phase change (condensation/evaporation) is often modeled using the Schrage equation, which relies on kinetic theory to determine mass transfer rates based on pressure differences and the accommodation coefficient.
+        Turbulence Modeling: The Shear Stress Transport k-ω (SST k-ω) model is frequently used for its accuracy in predicting turbulent mixing in boundary layers under adverse pressure gradients.
+        Real Gas Behavior: For cryogenic hydrogen (GH2), real gas equations of state are used, often using NIST database lookup tables, as ideal gas behavior deviates by ~12% in these systems.
+        Conjugate Heat Transfer (CHT): The tank walls are included in the simulation to account for thermal mass, with the outer surface usually modeled as adiabatic. 
+
+    3. Key Components of the Model
+
+        Accommodation Coefficient (AC): A critical parameter in interfacial mass transfer modeling, often adjusted to match experimental data (e.g., values around
+        to
+        have been found to be effective in cryogenic tests).
+        Initial Conditions: The model is initialized with the liquid at saturation temperature and measured temperatures in the ullage.
+        Diffuser/Inlet Model: In autogenous systems, warm gas is introduced to the ullage. This is often modeled by injecting gas into the domain at a set flow rate and temperature, sometimes simplified as a uniform boundary condition. 
+
+    4. Typical Validation Findings
+
+        Pressure Prediction: Both VOF and Sharp Interface models are usually able to predict tank pressure during pressurization within 3%–3.5% of measured values.
+        Laminar vs. Turbulent: While the vapor region may be considered turbulent (depending on Rayleigh number), some studies have found that laminar models with mass transfer can match experimental data just as well, as turbulence models may overpredict mixing.
+        Limitations: Models sometimes underpredict the pressure decrease rate during the first few seconds of draining due to rapid phase change dynamics not fully captured. 
+
+================
+Pressure: This is the critical design driver. HTC operates under autogenous (self-generated) pressure, which is the saturated steam pressure of water at the reaction temperature plus additional pressure from reaction gases (primarily CO₂). Álvarez-Murillo et al. (2022) developed a theoretical framework specifically for estimating HTC design reactor pressures, noting that understanding the pressure contribution from both water vapor and reaction gases is essential for cost-effective equipment design. Typical operating pressures:
+    Reaction Temperature	Saturated Water Pressure	Typical Total Pressure (incl. gas)
+    180°C	~10 bar	~12–15 bar
+    220°C	~23 bar	~25–30 bar
+    250°C	~40 bar	~42–50 bar
+    300°C	~86 bar	~90–100 bar
+
+    For design purposes, you must account for the reaction gas overpressure on top of saturated steam pressure. A design pressure with an appropriate safety margin above the maximum expected operating pressure is standard practice.
+    

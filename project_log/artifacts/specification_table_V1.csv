@@ -1,0 +1,14 @@
+Domain,Subject,Research Input,Computational Method,Output / Decision
+Transport & Logistics,Airship payload class,Platform specs / comparable systems,None — hard constraint lookup,Max system mass & volume bound
+Transport & Logistics,Feedstock sourcing radius,Disaster zone typology literature,None — scenario scoping,Throughput ceiling estimate
+Transport & Logistics,Product export pathway,Infrastructure availability by scenario,None — decision logic,Fuel vs. sequestration pathway selection
+Heat Transfer,Reactor wall heat loss vs. scale,HTC literature / vessel geometry,Thermal model (surface-to-volume ratio sweep),Minimum viable scale for self-sufficiency
+Heat Transfer,Feedstock preheating requirement,Moisture content / specific heat data,Energy balance per feedstock class,Preprocessing energy ceiling
+Heat Transfer,Heat exchanger recovery,Published HTC heat recovery data,ε-NTU or LMTD parametric sweep,Recovery ratio target
+Fluid Mechanics / Process Water,Slurry flow behavior,Rheology data / HTC literature,Pipe flow & pressure drop model,Pump parasitic load estimate
+Fluid Mechanics / Process Water,Phase separation dynamics,Separation efficiency literature,Mass balance model,Char recovery fraction
+Fluid Mechanics / Process Water,Process water recirculation,Water quality threshold data,Flow rate & treatment load calculation,Water loop closure condition
+Physical & Contextual Constraints,Feedstock moisture variability,Disaster zone waste characterization,Moisture threshold crossover model,Energy balance sign determination
+Physical & Contextual Constraints,Ambient temperature,Climate / deployment scenario data,Heat loss sensitivity vs. environment,Scale × environment interaction map
+Physical & Contextual Constraints,Batch vs. continuous operation,Logistical & operational literature,Thermal cycling loss estimation,Operating mode selection
+Physical & Contextual Constraints,Mixed feedstock composition,Field condition surveys / HTC literature,Adaptive operating envelope scoping,Reactor tuning uncertainty bounds
