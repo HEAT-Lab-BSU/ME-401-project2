@@ -12,7 +12,7 @@ The project is structured around a central engineering question: **can a field-d
 ---
 ## Purpose of This Repository
  
-This project serves as the **example and formatting reference** for the course. It demonstrates the expected depth of inquiry, documentation standard, and analytical structure — not a required topic or approach.
+This repository serves as the **example and formatting reference** for the project. It demonstrates the expected depth of inquiry, documentation standard, and analytical structure — not a required topic or approach.
  
 **Student projects may address any comparable thermal-fluid system application**
  
