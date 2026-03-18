@@ -1,11 +1,11 @@
 # HTC Airship Disaster Relief System — Engineering Analysis Project
  
-**Example project for ME [XXXX]: Applied Thermal-Fluid Systems Analysis**
+**Example project for ME 401: Applied Thermal-Fluid Systems Analysis**
  
 ---
 ## Project Overview
  
-This repository documents a semester-long engineering analysis of a modular hydrothermal carbonization (HTC) reactor system conveyed by airship for disaster relief waste valorization. The system converts wet organic waste into hydrochar and recoverable energy without reliance on fixed infrastructure.
+This repository documents the preliminary engineering analysis of a modular hydrothermal carbonization (HTC) reactor system conveyed by airship for disaster relief waste valorization. The system converts wet organic waste into hydrochar and recoverable energy without reliance on fixed infrastructure.
  
 The project is structured around a central engineering question: **can a field-deployed HTC reactor be energy self-sufficient**, given real constraints on airship payload, pressure vessel mass, feedstock moisture content, and heat recovery effectiveness?
  
