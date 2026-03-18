@@ -85,4 +85,6 @@
     - 9:45 presentation complete
     - 10:00 reviewing presentation / perusing other similar resources
     - 11:00 working towards github upload of discovery project [2]
+    - 12:00 upload complete
+    - project complete!
 --------------------------------

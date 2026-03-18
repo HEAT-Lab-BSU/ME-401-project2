@@ -8,7 +8,7 @@ One sentence. What does done look like today?
 |-------|------|-------------|
 | 1 | finish presentation | 90 min |
 | 2 | document and upload project | 60 min |
-| 3 | begin scaffolding planning | 90 min |
+
 
 ## Assumptions I Am Making
 - discovery project complete
