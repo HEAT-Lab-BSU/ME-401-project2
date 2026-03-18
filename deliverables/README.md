@@ -1,6 +1,6 @@
 # Project Deliverables
  
-This repository contains the example deliverables for the project — a **technical report** and **presentation** detailing the outcomes and process used in the engineering analysis.
+This directory contains example deliverables for the project — a **technical report** and **presentation** detailing the outcomes and process used in the engineering analysis.
  
 ## Contents
  
