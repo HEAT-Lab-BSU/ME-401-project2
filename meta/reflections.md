@@ -6,19 +6,20 @@ This is not a session log. It is where patterns across sessions become claims.
 
 ---
 
-## Reflection — YYYY-MM-DD
+## Reflection — 2026-03-18
 
-**Trigger:** What made you stop and write this?
+**Trigger:** Finished project
 
 **Observation:**
-(What happened — just the facts)
+emphasis of project switched from functional AI use and code generation to explicit thought mapping and comprehensible engineering process. Tranparency in process and method seems crucial for AI assissted work (foundation of ethical implementation?)
 
 **Interpretation:**
-(What you think it means for your research questions)
+This is an excellent reinforcing note for the value of systems thinking in conjunction with critical generative AI use
 
 **Tentative Claim:**
-(If you had to write one sentence for a paper, what would it be?)
+The process of engineering education should be tailored to develop clear and critical thought patterns, specifically transparent systems thinking and documentation methods 
 
 **What Would Strengthen or Undermine This:**
+It is bolstered by the interdisciplinary value of systems thinking, it cannot be conflated with devaluing specialized knowledge and detailed oriented engineering.
 
 ---

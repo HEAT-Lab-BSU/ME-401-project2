@@ -77,5 +77,12 @@
     - 12:40 ready to add figures to report [b]
     - 4:15 beginning technical report editing [3]
     - 5:11 finished report. beginning presentation
-    - 6:45 ~ 0.5 % complete on presentation slides. finished for the day
+    - 6:45 ~ 50 % complete on presentation slides. finished for the day
+--------------------------------
+2026-03-18
+    - 8:20 beginning project logs.
+    - 8:40 logs complete. starting presentation [1]
+    - 9:45 presentation complete
+    - 10:00 reviewing presentation / perusing other similar resources
+    - 11:00 working towards github upload of discovery project [2]
 --------------------------------
